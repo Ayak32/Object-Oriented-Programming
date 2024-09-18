@@ -8,7 +8,7 @@ class BankCLI:
 
     def __init__(self):
         # something
-        self._bank = Bank
+        self._bank = Bank()
         self._choices = {
             "1": self._open_account,
             "2": self._summary,
@@ -44,9 +44,46 @@ class BankCLI:
             choice = input(">")
             action = self._choices.get(choice)
             if action:
+                # if action == "_select_account":
+                #     current_account = 
+
                 action()
             else:
                 print("{0} is not a valid choice".format(choice))
+    
+    def _open_account(self):
+        account_type = input("Type of account? (checking/savings)")
+        self._bank.new_account(account_type)
+
+    # FIX
+    def _summary(self, accounts=None):
+        # if accounts is None:
+        #     accounts = self._accounts.all_accounts()
+        for account in accounts:
+            print(str(account))
+
+    # FIX
+    def _add_transaction(self):
+        amount = input("Amount?")
+        date = input("Date? (YYYY-MM-DD)")
+        self._transaction.new_tran(amount, date)
+
+            
+
+    
+
+
+
+    def _save(self):
+        with open("bank_save.pickle", "wb") as f:
+            pickle.dump(self._bank, f)
+
+    def _load(self):
+        with open("bank_save.pickle", "rb") as f:   
+            self._bank = pickle.load(f)
+    
+    def _quit(self):
+        sys.exit(0)
 
 if __name__ == "__main__":
     BankCLI().run()
