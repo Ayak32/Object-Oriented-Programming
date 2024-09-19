@@ -13,17 +13,23 @@ class Bank:
         # increment count to allow for a unique account number
         self.count += 1
         if account_type == "Savings":
-            account = SavingsAccount(self.count)
+            self._accounts.append(SavingsAccount(self.count, account_type))
         else:
-            account = CheckingAccount(self.count)
+            self._accounts.append(CheckingAccount(self.count, account_type))
+
+
+
+    def new_transaction(self, amount, date, account):
+        account.add_transaction(amount, date)
+
         
-        self._accounts.append(account)
-        return account
-
-    def add_transaction(self, amount, date):
-        dfs
-
+        
     def fetch_account(self, account_number):
+        for account in self._accounts:
+            if account.number_matches(account_number):
+                return account
+
+    def fetch_account_then_format(self, account_number):
         for account in self._accounts:
             if account.number_matches(account_number):
                 return account.format_account()

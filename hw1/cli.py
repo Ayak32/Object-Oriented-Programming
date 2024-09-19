@@ -8,7 +8,8 @@ class BankCLI:
 
     def __init__(self):
         self._bank = Bank()
-        self._current_account = "None"
+        self._current_account_formated = "None"
+        self._current_account = ""
         self._choices = {
             "1": self._open_account,
             "2": self._summary,
@@ -52,24 +53,28 @@ class BankCLI:
         account_type = input("Type of account? (checking/savings)")
         self._bank.new_account(account_type)
 
-    # FIX
-    def _summary(self, accounts=None):
-        if accounts is None:
-            accounts = self._bank.all_accounts()
+
+    def _summary(self):
+        accounts = self._bank.all_accounts()
         for account in accounts:
             print(account)
 
     def _select_account(self):
         account_number = input("Enter account number")
         selected_account = self._bank.fetch_account(account_number)
+        selected_account_formated = self._bank.format_account(selected_account)
         self._current_account = selected_account
+        self._current_account_formated = selected_account_formated
 
 
     # FIX
     def _add_transaction(self):
         amount = input("Amount?")
         date = input("Date? (YYYY-MM-DD)")
-        self._bank.new_transaction(amount, date)
+        self._bank.new_transaction(amount, date, self._current_account)
+        self._current_account_formated = self._bank.format_account()
+
+
 
     def _save(self):
         with open("bank_save.pickle", "wb") as f:

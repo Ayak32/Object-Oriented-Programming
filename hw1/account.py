@@ -7,10 +7,12 @@ from savings_account import SavingsAccount
 # maintains a list of transactions in the account
 # methods support default behavior, but may be overridden by these next two classes...
 class Account:
-    def __init__(self, number):
+    def __init__(self, number, type):
         self._transactions = [] 
         self._balance = 0
-        self._account_number = number
+        self._number = number
+        self._type = type
+
     
     def number_matches(self, number):
         return int(number) == self._account_number
