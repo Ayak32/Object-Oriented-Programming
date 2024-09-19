@@ -7,8 +7,8 @@ class BankCLI:
     """Display a menu and respond to choices when run"""
 
     def __init__(self):
-        # something
         self._bank = Bank()
+        self._current_account = "None"
         self._choices = {
             "1": self._open_account,
             "2": self._summary,
@@ -21,9 +21,9 @@ class BankCLI:
             "9": self._quit
         }
 
-    def _display_menu(self, current_account):
+    def _display_menu(self):
         print(
-        """Currently selected account: """ + current_account +
+        """Currently selected account: """ + self._current_account +
         """Enter command
         1: open account
         2: summary
@@ -44,9 +44,6 @@ class BankCLI:
             choice = input(">")
             action = self._choices.get(choice)
             if action:
-                # if action == "_select_account":
-                #     current_account = 
-
                 action()
             else:
                 print("{0} is not a valid choice".format(choice))
@@ -57,22 +54,22 @@ class BankCLI:
 
     # FIX
     def _summary(self, accounts=None):
-        # if accounts is None:
-        #     accounts = self._accounts.all_accounts()
+        if accounts is None:
+            accounts = self._bank.all_accounts()
         for account in accounts:
-            print(str(account))
+            print(account)
+
+    def _select_account(self):
+        account_number = input("Enter account number")
+        selected_account = self._bank.fetch_account(account_number)
+        self._current_account = selected_account
+
 
     # FIX
     def _add_transaction(self):
         amount = input("Amount?")
         date = input("Date? (YYYY-MM-DD)")
-        self._transaction.new_tran(amount, date)
-
-            
-
-    
-
-
+        self._bank.new_transaction(amount, date)
 
     def _save(self):
         with open("bank_save.pickle", "wb") as f:
