@@ -12,17 +12,17 @@ class Bank:
     def new_account(self, account_type):
         # increment count to allow for a unique account number
         self.count += 1
-        if account_type == "Savings":
-            self._accounts.append(SavingsAccount(self.count, account_type))
+        if account_type == "savings":
+            self._accounts.append(SavingsAccount(self.count))
         else:
-            self._accounts.append(CheckingAccount(self.count, account_type))
+            self._accounts.append(CheckingAccount(self.count))
 
 
 
     def new_transaction(self, amount, date, account):
-        account.add_transaction(amount, date)
+        account.verify_transaction(amount, date)
 
-    def new_transaction(self, account):
+    def list_transaction(self, account):
         account.list_transactions()
 
         

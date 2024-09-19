@@ -8,8 +8,11 @@ class BankCLI:
 
     def __init__(self):
         self._bank = Bank()
+
+        # stores the string printed when an account is selected
         self._current_account_formated = "None"
         self._current_account = ""
+
         self._choices = {
             "1": self._open_account,
             "2": self._summary,
@@ -72,8 +75,6 @@ Enter command
         self._current_account = selected_account
         self._current_account_formated = selected_account_formated
 
-
-    # FIX
     def _add_transaction(self):
         print("Amount?")
         amount = input(">")
