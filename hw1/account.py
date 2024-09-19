@@ -1,5 +1,4 @@
-from checking_account import CheckingAccount
-from savings_account import SavingsAccount
+from datetime import datetime
 
 # should be an abstract class
 
@@ -8,7 +7,7 @@ from savings_account import SavingsAccount
 # methods support default behavior, but may be overridden by these next two classes...
 class Account:
     def __init__(self, number, type):
-        self._transactions = [] 
+        self._transactions = []
         self._balance = 0
         self._number = number
         self._type = type
@@ -27,6 +26,11 @@ class Account:
         formatted_balance = f"${balance:,.2f}"
         return f"{type}#{padded_account_number},\t balance: {formatted_balance}"
   
+    def list_transactions(self):
+        sorted_transactions = sorted(self._transactions, key=lambda x: x.date)
+        for tran in sorted_transactions:
+            print(tran)
+
     def interest(self):
         pass
 

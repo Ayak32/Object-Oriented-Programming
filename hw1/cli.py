@@ -24,24 +24,26 @@ class BankCLI:
 
     def _display_menu(self):
         print(
-        """Currently selected account: """ + self._current_account +
-        """Enter command
-        1: open account
-        2: summary
-        3: select account
-        4: add transaction
-        5: list transactions
-        6: interest and fees
-        7: save
-        8: load
-        9: quit""", 
+"""--------------------------------
+Currently selected account: """ + self._current_account_formated +
+"""
+Enter command
+1: open account
+2: summary
+3: select account
+4: add transaction
+5: list transactions
+6: interest and fees
+7: save
+8: load
+9: quit""", 
         )
 
     def run(self):
         """Display the menu and respond to choices."""
         current_account = "None"
         while True:
-            self._display_menu(current_account)
+            self._display_menu()
             choice = input(">")
             action = self._choices.get(choice)
             if action:
@@ -50,7 +52,8 @@ class BankCLI:
                 print("{0} is not a valid choice".format(choice))
     
     def _open_account(self):
-        account_type = input("Type of account? (checking/savings)")
+        print("Type of account? (checking/savings)")
+        account_type = input(">")
         self._bank.new_account(account_type)
 
 
@@ -60,23 +63,36 @@ class BankCLI:
             print(account)
 
     def _select_account(self):
-        account_number = input("Enter account number")
+        print("Enter account number")
+        account_number = input(">")
+
         selected_account = self._bank.fetch_account(account_number)
         selected_account_formated = self._bank.format_account(selected_account)
+
         self._current_account = selected_account
         self._current_account_formated = selected_account_formated
 
 
     # FIX
     def _add_transaction(self):
-        amount = input("Amount?")
-        date = input("Date? (YYYY-MM-DD)")
+        print("Amount?")
+        amount = input(">")
+        print("Date? (YYYY-MM-DD)")
+        date = input(">")
+        
         self._bank.new_transaction(amount, date, self._current_account)
-        self._current_account_formated = self._bank.format_account()
+        self._current_account_formated = self._bank.format_account(self._current_account)
 
+    def _list_transactions(self):
+        self._bank.list_transactions(self._current_account)
+
+    def _interest_and_fees(self):
+        return
 
 
     def _save(self):
+        self._current_account = ""
+        self._current_account_formated = "None"
         with open("bank_save.pickle", "wb") as f:
             pickle.dump(self._bank, f)
 

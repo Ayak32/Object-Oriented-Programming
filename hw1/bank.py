@@ -22,6 +22,9 @@ class Bank:
     def new_transaction(self, amount, date, account):
         account.add_transaction(amount, date)
 
+    def new_transaction(self, account):
+        account.list_transactions()
+
         
         
     def fetch_account(self, account_number):
@@ -29,9 +32,7 @@ class Bank:
             if account.number_matches(account_number):
                 return account
 
-    def fetch_account_then_format(self, account_number):
-        for account in self._accounts:
-            if account.number_matches(account_number):
+    def format_account(self, account):
                 return account.format_account()
     
   
