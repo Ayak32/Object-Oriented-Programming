@@ -63,7 +63,7 @@ class Bank:
             Account: The account object if found, None if the account does not exist.
         """
         # Check for invalid account number
-        if int(account_number) > self.count or int(account_number) <= 0:
+        if int(account_number) > self._count or int(account_number) <= 0:
             print("Account Does Not Exist")
             return
         for account in self._accounts:
