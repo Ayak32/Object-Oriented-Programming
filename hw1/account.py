@@ -4,9 +4,11 @@ from decimal import Decimal
 import calendar
 
 class Account:
+    """An abstract class that represents a generic bank account. The account tracks transactions, maintains a balance, 
+    and provides methods for verifying and listing transactions, applying interest and fees, 
+    and formatting account details."""
     def __init__(self, number):
-        """
-        Initialize the Account with a given account number, an empty transaction list, 
+        """Initialize the Account with a given account number, an empty transaction list, 
         and a starting balance of 0.
         
         Args:
@@ -18,8 +20,7 @@ class Account:
         self._number = number
     
     def number_matches(self, number):
-        """
-        Check if the provided account number matches this account's number.
+        """Check if the provided account number matches this account's number.
         
         Args:
             number (int): The account number to check.
@@ -30,8 +31,7 @@ class Account:
         return int(number) == self._number
 
     def format_account(self):
-        """
-        Format the account details as a string with the account type, padded account number,
+        """Format the account details as a string with the account type, padded account number,
         and the current balance.
         
         Returns:
@@ -47,8 +47,7 @@ class Account:
         return f"{type}#{padded_account_number},\tbalance: {formatted_balance}"
   
     def list_transactions(self):
-        """
-        List all transactions for this account, sorted by date.
+        """List all transactions for this account, sorted by date.
         
         Prints:
             Each transaction in chronological order.
@@ -59,8 +58,7 @@ class Account:
             print(tran)
 
     def verify_transaction(self, amount):
-        """
-        Verify if a transaction can be applied to the account based on the balance.
+        """Verify if a transaction can be applied to the account based on the balance.
         Prevents overdrawing except for when fees are applied to a checking account.
         
         Args:
@@ -85,8 +83,7 @@ class Account:
         return f"{latest_year}-{latest_month}-{day}"
     
     def interest_and_fees(self):
-        """
-        Apply interest or fees based on the account balance. If the balance is positive, 
+        """Apply interest or fees based on the account balance. If the balance is positive, 
         interest is added; if the balance is negative, the interest becomes negative and a fee is charged.
         
         Returns:

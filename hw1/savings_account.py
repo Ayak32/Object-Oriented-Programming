@@ -4,8 +4,16 @@ from decimal import Decimal
 
 
 class SavingsAccount(Account):
-
+    """A class representing a savings account, inheriting from the Account class.
+    """
     def __init__(self, number):
+        """
+        Initialize a SavingsAccount with a unique account number, interest rate, 
+        and counters for daily and monthly transaction limits.
+        
+        Args:
+            number (int): The account number.
+        """
         super().__init__(number)
         self._type = "Savings"
         self.interest_rate = Decimal(0.0041)
@@ -13,6 +21,18 @@ class SavingsAccount(Account):
         self._month_count = {}
 
     def verify_transaction(self, amount, date):
+        """
+        Verify if a transaction can be applied to the savings account based on the account balance
+        and daily/monthly transaction limits. Allows up to two transactions per day and five 
+        transactions per month.
+        
+        Args:
+            amount (str): The transaction amount.
+            date (str): The date of the transaction in 'YYYY-MM-DD' format.
+        
+        Returns:
+            None: Does not apply the transaction if any of the limits or balance constraints are exceeded.
+        """
         # checks that the transaction would not overdraw the account
         verified = super().verify_transaction(amount, date)
 
@@ -56,7 +76,3 @@ class SavingsAccount(Account):
         else:
             self._month_count[year_month] = 1
     
-    # Our savings accounts should have a monthly interest rate of .41% (roughly 5% APY) 
-    #  the currently selected account adds a transaction for the total balance times the interest rate. 
-    # The date for this transaction should be the last day of the month that had the latest user created transaction.
-    # This transaction bypasses transaction limits on savings accounts. 

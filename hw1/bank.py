@@ -3,7 +3,9 @@ from checking_account import CheckingAccount
 
 
 class Bank:
-
+    """Manages a collection of savings and checking accounts. It supports
+    creating new accounts, handling transactions, applying interest and fees, and fetching 
+    or formatting account information."""
     def __init__(self):
         """Initialize the Bank class with an empty list of accounts and a counter for account numbers."""
         self._accounts = []
@@ -25,8 +27,7 @@ class Bank:
 
 
     def new_transaction(self, amount, date, account):
-        """
-        Add a new transaction to the selected account.
+        """Add a new transaction to the selected account.
         
         Args:
             amount (str): The transaction amount.
@@ -36,8 +37,7 @@ class Bank:
         account.verify_transaction(amount, date)
 
     def list_transactions(self, account):
-        """
-        List all transactions for the selected account.
+        """List all transactions for the selected account.
         
         Args:
             account (Account): The account object whose transactions will be listed.
@@ -45,8 +45,7 @@ class Bank:
         account.list_transactions()
 
     def interest_and_fees(self, account):
-        """
-        Apply interest and fees for the selected account.
+        """Apply interest and fees for the selected account.
         
         Args:
             account (Account): The account object to which interest and fees will be applied.
@@ -55,8 +54,7 @@ class Bank:
         
         
     def fetch_account(self, account_number):
-        """
-        Fetch the account object for the given account number.
+        """Fetch the account object for the given account number.
         
         Args:
             account_number (str): The number of the account to retrieve.
@@ -73,8 +71,7 @@ class Bank:
                 return account
 
     def format_account(self, account):
-        """
-        Format and return the account details as a string.
+        """Format and return the account details as a string.
         
         Args:
             account (Account): The account object to format.
@@ -86,8 +83,7 @@ class Bank:
     
   
     def all_accounts(self):
-        """
-        Format and return a list of all accounts in the bank.
+        """Format and return a list of all accounts in the bank.
         
         Returns:
             list: A list of formatted account details (type, number, balance).
