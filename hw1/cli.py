@@ -70,6 +70,8 @@ Enter command
         account_number = input(">")
 
         selected_account = self._bank.fetch_account(account_number)
+        if not selected_account:
+            return
         selected_account_formated = self._bank.format_account(selected_account)
 
         self._current_account = selected_account
@@ -88,6 +90,8 @@ Enter command
         self._bank.list_transactions(self._current_account)
 
     def _interest_and_fees(self):
+        #  the currently selected account adds a transaction for the total balance times the interest rate.
+        self._bank.interest_and_fees(self._current_account)
         return
 
 

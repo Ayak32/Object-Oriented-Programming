@@ -1,5 +1,7 @@
 from datetime import datetime
+from transaction import Transaction
 from decimal import Decimal
+import calendar
 
 # should be an abstract class
 
@@ -11,8 +13,6 @@ class Account:
         self._transactions = []
         self._balance = 0
         self._number = number
-        
-
     
     def number_matches(self, number):
         return int(number) == self._number
@@ -28,8 +28,7 @@ class Account:
         return f"{type}#{padded_account_number},\t balance: {formatted_balance}"
   
     def list_transactions(self):
-        
-        sorted_transactions = sorted(self._transactions, key=lambda x: x.date)
+        sorted_transactions = sorted(self._transactions, key=lambda x: x._date)
         for tran in sorted_transactions:
             print(tran)
 
@@ -37,12 +36,28 @@ class Account:
         current_balance = self._balance
         decimal_amount = Decimal(amount)
         balance_after_transaction = current_balance + decimal_amount
-        if balance_after_transaction < 0:
+        if current_balance > 0 and balance_after_transaction < 0:
             return False
         return True
 
-    def interest(self):
-        pass
+    def get_last_day(self):
+        latest_month, latest_year = self._transactions[-1]._date.month, self._transactions[-1]._date.year
+        day = calendar.monthrange(latest_year, latest_month)[1]
+        return latest_year + "-" + latest_month + "-" + day
+    
+    def interest_and_fees(self):
+        current_balance = self._balance
+        interst_rate = self._interest_rate
 
-    def fee(self):
-        pass
+        interest_amount = current_balance * interst_rate
+        interest_date = self.get_last_day()
+
+        if current_balance < 0:
+            interest_transaction = Transaction(interest_date, -interest_amount)
+        else: 
+            interest_transaction = Transaction(interest_date, interest_amount)
+
+        interest_transaction.withdraw_or_deposit(self)
+
+        self._transactions.append(interest_transaction)
+        return interest_date

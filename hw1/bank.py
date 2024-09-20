@@ -18,16 +18,20 @@ class Bank:
             self._accounts.append(CheckingAccount(self.count))
 
 
-
     def new_transaction(self, amount, date, account):
         account.verify_transaction(amount, date)
 
-    def list_transaction(self, account):
+    def list_transactions(self, account):
         account.list_transactions()
 
+    def interest_and_fees(self, account):
+        account.interest_and_fees()
         
         
     def fetch_account(self, account_number):
+        if int(account_number) > self.count:
+            print("Account Does Not Exist")
+            return
         for account in self._accounts:
             if account.number_matches(account_number):
                 return account
