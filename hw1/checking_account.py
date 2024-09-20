@@ -32,9 +32,9 @@ class CheckingAccount(Account):
         interest_date = super().interest_and_fees()
 
         if self._balance < Decimal(100):
-            self.apply_fee(interest_date)
+            self._apply_fee(interest_date)
 
-    def apply_fee(self, date):
+    def _apply_fee(self, date):
         fee = Decimal(-5.44)
         fee_transaction = Transaction(date, fee)
         fee_transaction.withdraw_or_deposit(self)

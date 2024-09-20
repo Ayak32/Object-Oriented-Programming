@@ -8,7 +8,7 @@ class SavingsAccount(Account):
     def __init__(self, number):
         super().__init__(number)
         self._type = "Savings"
-        self._interest_rate = Decimal(0.0041)
+        self.interest_rate = Decimal(0.0041)
         self._date_count = {}
         self._month_count = {}
 
@@ -60,7 +60,3 @@ class SavingsAccount(Account):
     #  the currently selected account adds a transaction for the total balance times the interest rate. 
     # The date for this transaction should be the last day of the month that had the latest user created transaction.
     # This transaction bypasses transaction limits on savings accounts. 
-
-    def interest_and_fees(self):
-        super().interest_and_fees()
-    

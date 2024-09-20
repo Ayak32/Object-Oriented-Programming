@@ -5,15 +5,38 @@ import calendar
 
 class Account:
     def __init__(self, number):
-        # keep list of each transaction
+        """
+        Initialize the Account with a given account number, an empty transaction list, 
+        and a starting balance of 0.
+        
+        Args:
+            number (int): The account number.
+        """
+
         self._transactions = []
         self._balance = 0
         self._number = number
     
     def number_matches(self, number):
+        """
+        Check if the provided account number matches this account's number.
+        
+        Args:
+            number (int): The account number to check.
+        
+        Returns:
+            bool: True if the account numbers match, False otherwise.
+        """
         return int(number) == self._number
 
     def format_account(self):
+        """
+        Format the account details as a string with the account type, padded account number,
+        and the current balance.
+        
+        Returns:
+            str: A formatted string representing the account details.
+        """
         type = self._type.capitalize()
         number = self._number
         balance = self._balance
@@ -24,12 +47,29 @@ class Account:
         return f"{type}#{padded_account_number},\tbalance: {formatted_balance}"
   
     def list_transactions(self):
-        # sort by date
+        """
+        List all transactions for this account, sorted by date.
+        
+        Prints:
+            Each transaction in chronological order.
+        """
+        # Sort by date
         sorted_transactions = sorted(self._transactions, key=lambda x: x._date)
         for tran in sorted_transactions:
             print(tran)
 
-    def verify_transaction(self, amount, date):
+    def verify_transaction(self, amount):
+        """
+        Verify if a transaction can be applied to the account based on the balance.
+        Prevents overdrawing except for when fees are applied to a checking account.
+        
+        Args:
+            amount (str): The transaction amount.
+            date (str): The transaction date.
+        
+        Returns:
+            bool: True if the transaction is valid, False otherwise.
+        """
         current_balance = self._balance
         decimal_amount = Decimal(amount)
         balance_after_transaction = current_balance + decimal_amount
@@ -39,17 +79,24 @@ class Account:
             return False
         return True
 
-    def get_last_day(self):
+    def _get_last_day(self):
         latest_month, latest_year = self._transactions[-1]._date.month, self._transactions[-1]._date.year
         day = calendar.monthrange(latest_year, latest_month)[1]
-        return str(latest_year) + "-" + str(latest_month) + "-" + str(day)
+        return f"{latest_year}-{latest_month}-{day}"
     
     def interest_and_fees(self):
+        """
+        Apply interest or fees based on the account balance. If the balance is positive, 
+        interest is added; if the balance is negative, the interest becomes negative and a fee is charged.
+        
+        Returns:
+            str: The date when the interest or fee was applied.
+        """
         current_balance = self._balance
-        interest_rate = self._interest_rate
+        interest_rate = self.interest_rate
 
         interest_amount = current_balance * interest_rate
-        interest_date = self.get_last_day()
+        interest_date = self._get_last_day()
 
         if current_balance < 0:
             negative_interest = -interest_amount
