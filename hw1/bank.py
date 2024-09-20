@@ -29,7 +29,8 @@ class Bank:
         
         
     def fetch_account(self, account_number):
-        if int(account_number) > self.count:
+        # check for invalid account number
+        if int(account_number) > self.count or int(account_number) <= 0:
             print("Account Does Not Exist")
             return
         for account in self._accounts:
@@ -43,6 +44,7 @@ class Bank:
     def all_accounts(self):
         formated_accounts_list = []
         for account in self._accounts:
+            # format account and add to list
             formated_accounts_list.append(account.format_account())
 
         return formated_accounts_list

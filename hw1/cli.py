@@ -9,8 +9,10 @@ class BankCLI:
     def __init__(self):
         self._bank = Bank()
 
-        # stores the string printed when an account is selected
+        # stores the current account as a string to be printed in menu
         self._current_account_formated = "None"
+
+        # later replaced with an account
         self._current_account = ""
 
         self._choices = {
@@ -69,11 +71,17 @@ Enter command
         print("Enter account number")
         account_number = input(">")
 
+        # retrieve account from account list
         selected_account = self._bank.fetch_account(account_number)
+        
+        # check if account does not exist
         if not selected_account:
             return
+        
+        # format account info (type, number, balance) to be printed in menu
         selected_account_formated = self._bank.format_account(selected_account)
 
+        # update current account variables
         self._current_account = selected_account
         self._current_account_formated = selected_account_formated
 
@@ -84,22 +92,33 @@ Enter command
         date = input(">")
         
         self._bank.new_transaction(amount, date, self._current_account)
+
+        # update current account string with new balance
         self._current_account_formated = self._bank.format_account(self._current_account)
 
     def _list_transactions(self):
         self._bank.list_transactions(self._current_account)
 
     def _interest_and_fees(self):
-        #  the currently selected account adds a transaction for the total balance times the interest rate.
         self._bank.interest_and_fees(self._current_account)
-        return
 
+        # update current account string with new balance
+        self._current_account_formated = self._bank.format_account(self._current_account)
 
     def _save(self):
+        # store current account to be re-set after saving the file
+        current_account = self._current_account
+        current_format = self._current_account_formated
+
+        # reset current account variables to reflect no account selected when file is loaded
         self._current_account = ""
         self._current_account_formated = "None"
         with open("bank_save.pickle", "wb") as f:
             pickle.dump(self._bank, f)
+
+        # restore current account
+        self._current_account = current_account
+        self._current_account_formated = current_format
 
     def _load(self):
         with open("bank_save.pickle", "rb") as f:   

@@ -37,6 +37,7 @@ class CheckingAccount(Account):
     def apply_fee(self, date):
         fee = Decimal(-5.44)
         fee_transaction = Transaction(date, fee)
+        fee_transaction.withdraw_or_deposit(self)
         self._transactions.append(fee_transaction)
 
 

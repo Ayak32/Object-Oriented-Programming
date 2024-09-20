@@ -3,13 +3,9 @@ from transaction import Transaction
 from decimal import Decimal
 import calendar
 
-# should be an abstract class
-
-# Base class for bank accounts
-# maintains a list of transactions in the account
-# methods support default behavior, but may be overridden by these next two classes...
 class Account:
     def __init__(self, number):
+        # keep list of each transaction
         self._transactions = []
         self._balance = 0
         self._number = number
@@ -25,9 +21,10 @@ class Account:
         padded_account_number = f"{number:09}"
         # Format the balance with commas and 2 decimal places
         formatted_balance = f"${balance:,.2f}"
-        return f"{type}#{padded_account_number},\t balance: {formatted_balance}"
+        return f"{type}#{padded_account_number},\tbalance: {formatted_balance}"
   
     def list_transactions(self):
+        # sort by date
         sorted_transactions = sorted(self._transactions, key=lambda x: x._date)
         for tran in sorted_transactions:
             print(tran)
@@ -36,6 +33,8 @@ class Account:
         current_balance = self._balance
         decimal_amount = Decimal(amount)
         balance_after_transaction = current_balance + decimal_amount
+        # prevents transactions from overdrawing 
+        # but also also for checking fees to cause a negative balance
         if current_balance > 0 and balance_after_transaction < 0:
             return False
         return True
@@ -43,17 +42,19 @@ class Account:
     def get_last_day(self):
         latest_month, latest_year = self._transactions[-1]._date.month, self._transactions[-1]._date.year
         day = calendar.monthrange(latest_year, latest_month)[1]
-        return latest_year + "-" + latest_month + "-" + day
+        return str(latest_year) + "-" + str(latest_month) + "-" + str(day)
     
     def interest_and_fees(self):
         current_balance = self._balance
-        interst_rate = self._interest_rate
+        interest_rate = self._interest_rate
 
-        interest_amount = current_balance * interst_rate
+        interest_amount = current_balance * interest_rate
         interest_date = self.get_last_day()
 
         if current_balance < 0:
-            interest_transaction = Transaction(interest_date, -interest_amount)
+            negative_interest = -interest_amount
+            print("in negative")
+            interest_transaction = Transaction(interest_date, negative_interest)
         else: 
             interest_transaction = Transaction(interest_date, interest_amount)
 
