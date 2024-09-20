@@ -16,7 +16,7 @@ class CheckingAccount(Account):
         """
         super().__init__(number)
         self._type = "Checking"
-        self._interest_rate = Decimal(0.0008)
+        self.interest_rate = Decimal(0.0008)
     
     def verify_transaction(self, amount, date):
         """Verify if a transaction can be processed based on the account balance, 
