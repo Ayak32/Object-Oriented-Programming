@@ -1,6 +1,6 @@
 from transaction import Transaction
 from decimal import Decimal, ROUND_HALF_UP
-
+from overdraw_error import OverdrawError
 from account import Account
 
 
@@ -30,9 +30,10 @@ class CheckingAccount(Account):
             None: If the transaction is not verified, nothing happens. 
                   If verified, the transaction is applied to the account.
         """
-        verified = super().verify_transaction(amount)
-        if not verified:
-            return 
+
+
+        super().verify_transaction(amount)
+
 
          # create new transaction
         new_transaction = Transaction(date, amount)

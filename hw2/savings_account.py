@@ -34,7 +34,7 @@ class SavingsAccount(Account):
             None: Does not apply the transaction if any of the limits or balance constraints are exceeded.
         """
         # checks that the transaction would not overdraw the account
-        verified = super().verify_transaction(amount)
+        super().verify_transaction(amount)
 
         # extract the year and month from date to check count of monthly transactions
         year_month = date[:7]
@@ -43,8 +43,8 @@ class SavingsAccount(Account):
         # the transaction would overdraw
         # two transactions have already occured on that day
         # five transactions have already occured that month
-        if not verified:
-            return 
+        # if not verified:
+        #     return 
 
         # Check if the limit for daily transactions has been reached
         if self._date_count.get(date, 0) >= 2:

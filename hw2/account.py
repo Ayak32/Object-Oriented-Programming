@@ -1,6 +1,7 @@
 from datetime import datetime
 from transaction import Transaction
 from decimal import Decimal
+from overdraw_error import OverdrawError
 import calendar
 
 class Account:
@@ -76,7 +77,8 @@ class Account:
         # prevents transactions from overdrawing 
         # but also allows for checking fees to cause a negative balance
         if current_balance >= 0 and balance_after_transaction < 0:
-            return False
+            raise OverdrawError
+            # return False
         return True
 
     def _get_last_day(self):

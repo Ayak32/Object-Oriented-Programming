@@ -1,7 +1,8 @@
 import sys
 import pickle
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
+from overdraw_error import OverdrawError
 from bank import Bank
 
 
@@ -95,7 +96,7 @@ Enter command
             try:
                 amount = Decimal(amount)
                 break
-            except Decimal.InvalidOperation:
+            except InvalidOperation:
                 print("Please try again with a valid dollar amount.")
 
 
@@ -113,8 +114,10 @@ Enter command
             self._bank.new_transaction(amount, date, self._current_account)
         except AttributeError:
             print("This command requires that you first select an account")
+            return
         except OverdrawError:
             print("This transaction could not be completed due to an insufficent account balance.")
+            return
 
 
         # update current account string with new balance
