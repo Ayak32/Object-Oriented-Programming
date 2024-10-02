@@ -72,8 +72,8 @@ class Account:
         decimal_amount = Decimal(amount)
         balance_after_transaction = current_balance + decimal_amount
         # prevents transactions from overdrawing 
-        # but also also for checking fees to cause a negative balance
-        if current_balance > 0 and balance_after_transaction < 0:
+        # but also allows for checking fees to cause a negative balance
+        if current_balance >= 0 and balance_after_transaction < 0:
             return False
         return True
 

@@ -30,7 +30,7 @@ class CheckingAccount(Account):
             None: If the transaction is not verified, nothing happens. 
                   If verified, the transaction is applied to the account.
         """
-        verified = super().verify_transaction(amount, date)
+        verified = super().verify_transaction(amount)
         if not verified:
             return 
 

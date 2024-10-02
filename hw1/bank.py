@@ -9,7 +9,7 @@ class Bank:
     def __init__(self):
         """Initialize the Bank class with an empty list of accounts and a counter for account numbers."""
         self._accounts = []
-        self.ـcount = 0
+        self._count = 0
 
 
     def new_account(self, account_type):
@@ -19,11 +19,11 @@ class Bank:
             account_type (str): The type of account to create ("savings" or "checking").
         """
         # Increment count to allow for a unique account number
-        self.ـcount += 1
+        self._count += 1
         if account_type == "savings":
-            self._accounts.append(SavingsAccount(self.ـcount))
+            self._accounts.append(SavingsAccount(self._count))
         else:
-            self._accounts.append(CheckingAccount(self.ـcount))
+            self._accounts.append(CheckingAccount(self._count))
 
 
     def new_transaction(self, amount, date, account):
