@@ -1,6 +1,7 @@
 from transaction import Transaction
 from account import Account
 from decimal import Decimal
+from transaction_limit_error import TransactionLimitError
 
 
 class SavingsAccount(Account):
@@ -34,10 +35,11 @@ class SavingsAccount(Account):
             None: Does not apply the transaction if any of the limits or balance constraints are exceeded.
         """
         # checks that the transaction would not overdraw the account
-        super().verify_transaction(amount)
+        super().verify_transaction(amount, date)
 
         # extract the year and month from date to check count of monthly transactions
-        year_month = date[:7]
+        # year_month = date[:7]
+        year_month = (date.year, date.month)
 
         # ignore transacation if:
         # the transaction would overdraw
@@ -48,11 +50,11 @@ class SavingsAccount(Account):
 
         # Check if the limit for daily transactions has been reached
         if self._date_count.get(date, 0) >= 2:
-            return 
+            raise TransactionLimitError("daily")
 
         # Check if the limit for monthly transactions has been reached
         if self._month_count.get(year_month, 0) >= 5:
-            return
+            raise TransactionLimitError("monthly")
             
 
         # create new transaction

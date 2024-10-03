@@ -32,7 +32,9 @@ class CheckingAccount(Account):
         """
 
 
-        super().verify_transaction(amount)
+        super().verify_transaction(amount, date)
+
+
 
 
          # create new transaction

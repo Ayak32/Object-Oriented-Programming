@@ -14,7 +14,7 @@ class Transaction:
             date (str): The date of the transaction in the format 'YYYY-MM-DD'.
             amount (float or str): The transaction amount.
         """
-        self._date = datetime.strptime(date, "%Y-%m-%d")
+        self._date = date
         self._amount = Decimal(amount)
     
     def __repr__(self):

@@ -3,6 +3,8 @@ import pickle
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from overdraw_error import OverdrawError
+from transaction_sequence_error import TransactionSequenceError
+from transaction_limit_error import TransactionLimitError
 from bank import Bank
 
 
@@ -104,7 +106,7 @@ Enter command
             print("Date? (YYYY-MM-DD)")
             date = input(">")
             try:
-                datetime.strptime(date, "%Y-%m-%d")
+                date = datetime.strptime(date, "%Y-%m-%d")
                 break
             except ValueError:
                 print("Please try again with a valid date in the format YYYY-MM-DD")
@@ -118,6 +120,16 @@ Enter command
         except OverdrawError:
             print("This transaction could not be completed due to an insufficent account balance.")
             return
+        except TransactionLimitError as e:
+            if e.limit == "daily":
+                print("This transaction could not be completed because this account already has 2 transactions in this day.")
+            else:
+                print("This transaction could not be completed because this account already has 5 transactions in this month.")
+        except TransactionSequenceError as s:
+            if s.error == "normalSequenceError":
+                print(f"New transactions must be from {s.latest_date.strftime('%Y-%m-%d')} onward.")
+
+
 
 
         # update current account string with new balance
@@ -134,6 +146,8 @@ Enter command
             self._bank.interest_and_fees(self._current_account)
         except AttributeError:
             print("This command requires that you first select an account")
+        except TransactionSequenceError as s:
+            print(f"Cannot apply interest and fees again in the month of {s.latest_date}.")
 
         # update current account string with new balance
         self._current_account_formated = self._bank.format_account(self._current_account)

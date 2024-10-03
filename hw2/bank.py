@@ -19,11 +19,14 @@ class Bank:
             account_type (str): The type of account to create ("savings" or "checking").
         """
         # Increment count to allow for a unique account number
-        self._count += 1
+        
         if account_type == "savings":
+            self._count += 1
             self._accounts.append(SavingsAccount(self._count))
-        else:
+        elif account_type == "checking":
+            self._count += 1
             self._accounts.append(CheckingAccount(self._count))
+
 
 
     def new_transaction(self, amount, date, account):
