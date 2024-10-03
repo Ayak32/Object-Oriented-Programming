@@ -2,6 +2,7 @@ from savings_account import SavingsAccount
 from checking_account import CheckingAccount 
 
 
+
 class Bank:
     """Manages a collection of savings and checking accounts. It supports
     creating new accounts, handling transactions, applying interest and fees, and fetching 
@@ -26,7 +27,7 @@ class Bank:
         elif account_type == "checking":
             self._count += 1
             self._accounts.append(CheckingAccount(self._count))
-
+        return self._count
 
 
     def new_transaction(self, amount, date, account):

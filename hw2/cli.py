@@ -5,7 +5,11 @@ from decimal import Decimal, InvalidOperation
 from overdraw_error import OverdrawError
 from transaction_sequence_error import TransactionSequenceError
 from transaction_limit_error import TransactionLimitError
+import logging
 from bank import Bank
+
+
+logging.basicConfig(filename='bank.log', level=logging.ERROR)
 
 
 class BankCLI:
@@ -51,7 +55,7 @@ Enter command
 
     def run(self):
         """Display the menu and respond to choices."""
-        current_account = "None"
+        # current_account = "None"
         while True:
             self._display_menu()
             choice = input(">")
@@ -64,7 +68,8 @@ Enter command
     def _open_account(self):
         print("Type of account? (checking/savings)")
         account_type = input(">")
-        self._bank.new_account(account_type)
+        account_number = self._bank.new_account(account_type)
+        logging.debug(f"Created account: {account_number}")
 
 
     def _summary(self):
@@ -101,7 +106,6 @@ Enter command
             except InvalidOperation:
                 print("Please try again with a valid dollar amount.")
 
-
         while True:
             print("Date? (YYYY-MM-DD)")
             date = input(">")
@@ -129,6 +133,7 @@ Enter command
             if s.error == "normalSequenceError":
                 print(f"New transactions must be from {s.latest_date.strftime('%Y-%m-%d')} onward.")
 
+        logging.debug(f"Created transaction: {self._current_account}, {amount}")
 
 
 
@@ -149,6 +154,7 @@ Enter command
         except TransactionSequenceError as s:
             print(f"Cannot apply interest and fees again in the month of {s.latest_date}.")
 
+        logging.debug("Triggered interest and fees")
         # update current account string with new balance
         self._current_account_formated = self._bank.format_account(self._current_account)
 
@@ -162,6 +168,7 @@ Enter command
         self._current_account_formated = "None"
         with open("bank_save.pickle", "wb") as f:
             pickle.dump(self._bank, f)
+            logging.debug("Saved to bank.pickle")
 
         # restore current account
         self._current_account = current_account
@@ -170,9 +177,20 @@ Enter command
     def _load(self):
         with open("bank_save.pickle", "rb") as f:   
             self._bank = pickle.load(f)
+            logging.debug("Loaded from bank.pickle")
     
     def _quit(self):
         sys.exit(0)
 
 if __name__ == "__main__":
-    BankCLI().run()
+    try:
+        BankCLI().run()
+    except Exception as e:
+        
+        print(f"Sorry! Something unexpected happened. Check the logs or contact the developer for assistance.")
+        
+        # Log the exception type and message
+        exception_type = type(e).__name__
+        exception_message = repr(e).replace('\n', '\\n')
+        logging.error(f"{exception_type}: {exception_message}")
+        sys.exit(0)
