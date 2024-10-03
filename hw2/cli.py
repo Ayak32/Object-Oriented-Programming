@@ -113,7 +113,7 @@ Enter command
                 date = datetime.strptime(date, "%Y-%m-%d")
                 break
             except ValueError:
-                print("Please try again with a valid date in the format YYYY-MM-DD")
+                print("Please try again with a valid date in the format YYYY-MM-DD.")
             
         
         try:
@@ -122,7 +122,7 @@ Enter command
             print("This command requires that you first select an account")
             return
         except OverdrawError:
-            print("This transaction could not be completed due to an insufficent account balance.")
+            print("This transaction could not be completed due to an insufficient account balance.")
             return
         except TransactionLimitError as e:
             if e.limit == "daily":
