@@ -3,6 +3,7 @@ from transaction import Transaction
 from decimal import Decimal
 from overdraw_error import OverdrawError
 from transaction_sequence_error import TransactionSequenceError
+import logging
 import calendar
 
 class Account:
@@ -132,4 +133,5 @@ class Account:
         interest_transaction.withdraw_or_deposit(self)
 
         self._transactions.append(interest_transaction)
-        return interest_date
+        logging.debug(f"Created transaction: {self._number}, {interest_transaction._amount}")
+        return interest_transaction

@@ -38,15 +38,9 @@ class SavingsAccount(Account):
         super().verify_transaction(amount, date)
 
         # extract the year and month from date to check count of monthly transactions
-        # year_month = date[:7]
         year_month = (date.year, date.month)
 
-        # ignore transacation if:
-        # the transaction would overdraw
-        # two transactions have already occured on that day
-        # five transactions have already occured that month
-        # if not verified:
-        #     return 
+
 
         # Check if the limit for daily transactions has been reached
         if self._date_count.get(date, 0) >= 2:

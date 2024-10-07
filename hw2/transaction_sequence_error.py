@@ -1,6 +1,7 @@
 import calendar
 
 class TransactionSequenceError(Exception):
+    """Exception raised when a transaction violates the chronological sequence of transactions and interest applications."""
 
     def __init__(self, error, date):
         super().__init__()

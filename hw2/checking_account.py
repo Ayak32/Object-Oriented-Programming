@@ -1,6 +1,7 @@
 from transaction import Transaction
 from decimal import Decimal, ROUND_HALF_UP
 from overdraw_error import OverdrawError
+import logging
 from account import Account
 
 
@@ -34,9 +35,6 @@ class CheckingAccount(Account):
 
         super().verify_transaction(amount, date)
 
-
-
-
          # create new transaction
         new_transaction = Transaction(date, amount)
         
@@ -53,13 +51,14 @@ class CheckingAccount(Account):
         Returns:
             None: Applies interest and fees to the account.
         """
-        interest_date = super().interest_and_fees()
+        interest_transaction = super().interest_and_fees()
 
         if self._balance < Decimal(100):
-            self._apply_fee(interest_date)
+            self._apply_fee(interest_transaction._date)
 
     def _apply_fee(self, date):
         fee = Decimal(-5.44)
         fee_transaction = Transaction(date, fee)
         fee_transaction.withdraw_or_deposit(self)
         self._transactions.append(fee_transaction)
+        logging.debug(f"Created transaction: {self._number}, {fee_transaction._amount}")

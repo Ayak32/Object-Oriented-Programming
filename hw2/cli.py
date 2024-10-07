@@ -9,7 +9,8 @@ import logging
 from bank import Bank
 
 
-logging.basicConfig(filename='bank.log', level=logging.ERROR)
+logging.basicConfig(filename='bank.log', level=logging.DEBUG, format='%(asctime)s|%(levelname)s|%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S')
 
 
 class BankCLI:
@@ -97,6 +98,7 @@ Enter command
 
     def _add_transaction(self):
 
+        # program prompts user for Amount until provide a valid dollar amount
         while True:
             print("Amount?")
             amount = input(">")
@@ -106,6 +108,7 @@ Enter command
             except InvalidOperation:
                 print("Please try again with a valid dollar amount.")
 
+        # program prompts user for Date until provide a valid date in the format YYYY-MM-DD
         while True:
             print("Date? (YYYY-MM-DD)")
             date = input(">")
@@ -115,7 +118,7 @@ Enter command
             except ValueError:
                 print("Please try again with a valid date in the format YYYY-MM-DD.")
             
-        
+        # program attempts to add a new transaction and checks for exceptions related to this action
         try:
             self._bank.new_transaction(amount, date, self._current_account)
         except AttributeError:
@@ -133,7 +136,7 @@ Enter command
             if s.error == "normalSequenceError":
                 print(f"New transactions must be from {s.latest_date.strftime('%Y-%m-%d')} onward.")
 
-        logging.debug(f"Created transaction: {self._current_account}, {amount}")
+        logging.debug(f"Created transaction: {self._current_account._number}, {amount}")
 
 
 
@@ -185,8 +188,9 @@ Enter command
 if __name__ == "__main__":
     try:
         BankCLI().run()
+
     except Exception as e:
-        
+        # handles  non-system exceptions
         print(f"Sorry! Something unexpected happened. Check the logs or contact the developer for assistance.")
         
         # Log the exception type and message
