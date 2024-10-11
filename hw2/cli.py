@@ -122,7 +122,7 @@ Enter command
         try:
             self._bank.new_transaction(amount, date, self._current_account)
         except AttributeError:
-            print("This command requires that you first select an account")
+            print("This command requires that you first select an account.")
             return
         except OverdrawError:
             print("This transaction could not be completed due to an insufficient account balance.")
@@ -147,13 +147,13 @@ Enter command
         try:
             self._bank.list_transactions(self._current_account)
         except AttributeError:
-            print("This command requires that you first select an account")
+            print("This command requires that you first select an account.")
 
     def _interest_and_fees(self):
         try:
             self._bank.interest_and_fees(self._current_account)
         except AttributeError:
-            print("This command requires that you first select an account")
+            print("This command requires that you first select an account.")
         except TransactionSequenceError as s:
             print(f"Cannot apply interest and fees again in the month of {s.latest_date}.")
 
