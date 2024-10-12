@@ -1,0 +1,47 @@
+2024-10-12 14:20:03|ERROR|AttributeError: AttributeError("'BankCLI' object has no attribute 'window'")
+2024-10-12 14:20:08|ERROR|AttributeError: AttributeError("'BankCLI' object has no attribute 'window'")
+2024-10-12 14:35:46|ERROR|NameError: NameError("name 'BankCLI' is not defined")
+2024-10-12 14:36:47|ERROR|AttributeError: AttributeError("'BankGUI' object has no attribute 'window'")
+2024-10-12 14:37:34|ERROR|AttributeError: AttributeError("'BankGUI' object has no attribute 'window'")
+2024-10-12 14:47:04|DEBUG|Triggered interest and fees
+2024-10-12 14:53:32|DEBUG|Triggered interest and fees
+2024-10-12 14:53:32|DEBUG|Triggered interest and fees
+2024-10-12 14:53:32|DEBUG|Triggered interest and fees
+2024-10-12 15:37:47|ERROR|AttributeError: AttributeError("'BankGUI' object has no attribute '_open_account'")
+2024-10-12 15:42:54|DEBUG|Created account: 0
+2024-10-12 15:45:29|DEBUG|Created account: 0
+2024-10-12 15:45:33|DEBUG|Created account: 0
+2024-10-12 16:11:48|DEBUG|Created account: 0
+2024-10-12 16:18:43|DEBUG|Created account: 1
+2024-10-12 16:32:05|DEBUG|Created account: 1
+2024-10-12 16:32:41|DEBUG|Created account: 2
+2024-10-12 16:38:29|DEBUG|Created account: 1
+2024-10-12 16:38:53|DEBUG|Created account: 2
+2024-10-12 16:39:05|DEBUG|Created account: 3
+2024-10-12 16:41:24|DEBUG|Created account: 1
+2024-10-12 16:43:46|DEBUG|Created account: 1
+2024-10-12 16:43:50|DEBUG|Created account: 2
+2024-10-12 16:45:18|DEBUG|Created account: 1
+2024-10-12 16:46:54|DEBUG|Created account: 1
+2024-10-12 16:56:01|DEBUG|Created account: 1
+2024-10-12 16:56:39|DEBUG|Created account: 1
+2024-10-12 16:58:49|DEBUG|Created account: 1
+2024-10-12 16:59:51|DEBUG|Created account: 1
+2024-10-12 17:04:37|DEBUG|Created account: 1
+2024-10-12 17:04:44|DEBUG|Created account: 2
+2024-10-12 17:06:32|DEBUG|Created account: 1
+2024-10-12 17:10:25|DEBUG|Created account: 1
+2024-10-12 17:18:29|DEBUG|Created account: 1
+2024-10-12 17:18:37|DEBUG|Created account: 2
+2024-10-12 17:22:10|DEBUG|Created account: 1
+2024-10-12 17:22:14|DEBUG|Created account: 2
+2024-10-12 17:23:13|DEBUG|Created account: 1
+2024-10-12 17:23:18|DEBUG|Created account: 2
+2024-10-12 17:24:02|DEBUG|Created account: 3
+2024-10-12 17:24:27|DEBUG|Created account: 4
+2024-10-12 17:24:31|DEBUG|Created account: 5
+2024-10-12 17:24:35|DEBUG|Created account: 6
+2024-10-12 17:24:39|DEBUG|Created account: 7
+2024-10-12 17:24:58|DEBUG|Created account: 1
+2024-10-12 17:25:03|DEBUG|Created account: 2
+2024-10-12 17:25:07|DEBUG|Created account: 3
