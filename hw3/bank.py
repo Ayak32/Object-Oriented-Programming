@@ -1,16 +1,30 @@
 from savings_account import SavingsAccount 
 from checking_account import CheckingAccount 
+from account import Account
+from base import Base
+from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 
 
-class Bank:
+class Bank(Base):
     """Manages a collection of savings and checking accounts. It supports
     creating new accounts, handling transactions, applying interest and fees, and fetching 
     or formatting account information."""
-    def __init__(self):
-        """Initialize the Bank class with an empty list of accounts and a counter for account numbers."""
-        self._accounts = []
-        self._count = 0
+    # def __init__(self):
+    #     """Initialize the Bank class with an empty list of accounts and a counter for account numbers."""
+    #     self._accounts = []
+    #     self._count = 0
+
+    def __init__(self, session):
+        self.session = session
+        self.account_number = self._next_account_number()  
+
+    def _next_account_number(self):
+        max_account = self.session.query(func.max(Account._number)).scalar()
+        # INCOMPLETE
+        logging.debug(f"Loaded from bank.db")
+        return max_account + 1 if max_account else 1
 
 
     def new_account(self, account_type):
@@ -54,7 +68,7 @@ class Bank:
         Args:
             account (Account): The account object whose transactions will be listed.
         """
-        account.list_transactions()
+        return account.list_transactions()
 
     def interest_and_fees(self, account):
         """Apply interest and fees for the selected account.

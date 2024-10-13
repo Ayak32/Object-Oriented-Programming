@@ -146,10 +146,13 @@ Enter command
 
     def _list_transactions(self):
         try:
-            self._bank.list_transactions(self._current_account)
+            sorted_transactions = self._bank.list_transactions(self._current_account)
+            for tran in sorted_transactions:
+                print(tran)
         except AttributeError:
             print("This command requires that you first select an account.")
 
+        
     def _interest_and_fees(self):
         try:
             self._bank.interest_and_fees(self._current_account)

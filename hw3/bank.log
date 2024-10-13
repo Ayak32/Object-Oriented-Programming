@@ -47,3 +47,28 @@
 2024-10-12 17:25:07|DEBUG|Created account: 3
 2024-10-12 17:27:26|DEBUG|Created account: 1
 2024-10-12 17:27:29|DEBUG|Created account: 2
+2024-10-12 18:45:43|DEBUG|Created account: 1
+2024-10-12 18:45:50|DEBUG|Created account: 2
+2024-10-12 18:46:00|DEBUG|Created account: 3
+2024-10-12 18:51:16|DEBUG|Created account: 1
+2024-10-12 18:51:30|ERROR|UnboundLocalError: UnboundLocalError("cannot access local variable 'sorted_transactions' where it is not associated with a value")
+2024-10-12 18:52:10|DEBUG|Created account: 1
+2024-10-12 18:52:39|DEBUG|Created transaction: 1, 1
+2024-10-12 18:52:42|ERROR|TypeError: TypeError("'NoneType' object is not iterable")
+2024-10-12 18:54:00|DEBUG|Created account: 1
+2024-10-12 18:54:12|DEBUG|Created transaction: 1, 1
+2024-10-12 18:54:14|ERROR|TypeError: TypeError("'NoneType' object is not iterable")
+2024-10-12 18:54:57|DEBUG|Created account: 1
+2024-10-12 18:55:10|DEBUG|Created transaction: 1, 1
+2024-10-12 19:05:14|ERROR|AttributeError: AttributeError("'BankGUI' object has no attribute 'tk'")
+2024-10-12 19:06:18|DEBUG|Created account: 1
+2024-10-12 19:07:30|DEBUG|Created account: 1
+2024-10-12 19:07:36|DEBUG|Created account: 2
+2024-10-12 19:12:23|DEBUG|Created account: 1
+2024-10-12 19:12:27|DEBUG|Created account: 2
+2024-10-12 19:13:06|DEBUG|Created account: 1
+2024-10-12 19:13:11|DEBUG|Created account: 2
+2024-10-12 19:13:34|DEBUG|Created account: 1
+2024-10-12 19:13:39|DEBUG|Created account: 2
+2024-10-12 19:14:05|DEBUG|Created account: 1
+2024-10-12 19:14:09|DEBUG|Created account: 2

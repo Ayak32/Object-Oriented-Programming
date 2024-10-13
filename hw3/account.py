@@ -57,9 +57,8 @@ class Account:
             Each transaction in chronological order.
         """
         # Sort by date
-        sorted_transactions = sorted(self._transactions, key=lambda x: x._date)
-        for tran in sorted_transactions:
-            print(tran)
+        return sorted(self._transactions, key=lambda x: x._date)
+
 
     def verify_sequence(self, date):
         # if no previous transactions, no need to sort or verify sequence
