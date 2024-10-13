@@ -40,13 +40,11 @@ class Bank():
         # Increment count to allow for a unique account number
         
         if account_type == "savings":
-            self._count += 1
+            # self._count += 1
             new_account = SavingsAccount(self._count)
-            self._accounts.append(new_account)
         elif account_type == "checking":
-            self._count += 1
+            # self._count += 1
             new_account = CheckingAccount(self._count)
-            self._accounts.append(new_account)
         else:
             return None
 
@@ -54,7 +52,6 @@ class Bank():
         self.session.commit()
         logging.debug(f"Saved to bank.db")
         logging.debug(f"Created account: {new_account.number}")
-
         self._count += 1
         return new_account
         
@@ -120,7 +117,7 @@ class Bank():
     
     def select_account(self, account_number):
         logging.debug(f"Loaded from bank.db")
-        return self.session.query(Account).filter_by(account_number=int(account_number)).first()
+        return self.session.query(Account).filter_by(number=int(account_number)).first()
 
     def all_accounts(self):
         """Format and return a list of all accounts in the bank.

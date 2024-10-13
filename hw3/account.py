@@ -89,13 +89,17 @@ class Account(Base):
         # if no previous transactions, no need to sort or verify sequence
         if len(self._transactions) == 0:
             return
-
+        print("here")
         # sorts transactions from the latest to the earliest
         #sorted_transactions = sorted(self._transactions, key=lambda transaction: transaction._date, reverse=True)
         sorted_transactions = sorted(self._transactions)
-        latest_date = sorted_transactions[0]._date
-        if date < latest_date:
-            raise TransactionSequenceError("normalSequenceError", latest_date)
+        print("here")
+        latest_transaction = sorted_transactions[-1]
+        print(latest_transaction)
+        if date < latest_transaction._date:
+            print("here")
+            raise TransactionSequenceError("normalSequenceError", latest_transaction._date)
+        print("end verify seqence")
 
     def verify_transaction(self, amount, date):
         """Verify if a transaction can be applied to the account based on the balance.

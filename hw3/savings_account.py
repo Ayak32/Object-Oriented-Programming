@@ -19,7 +19,7 @@ class SavingsAccount(Account):
     # monthly_limit = mapped_column(Integer)
 
     __mapper_args__ = {
-        'polymorphic_identity': 'savings'
+        'polymorphic_identity': 'Savings'
     }
 
     def __init__(self, number):

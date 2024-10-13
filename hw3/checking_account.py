@@ -19,7 +19,7 @@ class CheckingAccount(Account):
     # balance_threshold = mapped_column(Float(asdecimal=True))
 
     __mapper_args__ = {
-        'polymorphic_identity': 'checking'
+        'polymorphic_identity': 'Checking'
     }
     
 

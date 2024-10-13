@@ -1,5 +1,4 @@
 import sys
-import pickle
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from overdraw_error import OverdrawError
@@ -12,9 +11,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from base import Base
 
-
-
-# Base = declarative_base()
 
 logging.basicConfig(filename='bank.log', level=logging.DEBUG, format='%(asctime)s|%(levelname)s|%(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
@@ -46,9 +42,7 @@ class BankCLI:
             "4": self._add_transaction,
             "5": self._list_transactions,
             "6": self._interest_and_fees,
-            "7": self._save,
-            "8": self._load,
-            "9": self._quit
+            "7": self._quit
         }
 
     def _display_menu(self):
@@ -63,9 +57,7 @@ Enter command
 4: add transaction
 5: list transactions
 6: interest and fees
-7: save
-8: load
-9: quit""", 
+7: quit""", 
         )
 
     def run(self):
@@ -102,8 +94,8 @@ Enter command
         # selected_account = self._bank.fetch_account(account_number)
 
         # check if account does not exist
-        if not selected_account:
-            return
+        # if not selected_account:
+        #     return
         
         # format account info (type, number, balance) to be printed in menu
         selected_account_formated = self._bank.format_account(selected_account)
@@ -184,26 +176,26 @@ Enter command
         # update current account string with new balance
         self._current_account_formated = self._bank.format_account(self._current_account)
 
-    def _save(self):
-        # store current account to be re-set after saving the file
-        current_account = self._current_account
-        current_format = self._current_account_formated
+    # def _save(self):
+    #     # store current account to be re-set after saving the file
+    #     current_account = self._current_account
+    #     current_format = self._current_account_formated
 
-        # reset current account variables to reflect no account selected when file is loaded
-        self._current_account = ""
-        self._current_account_formated = "None"
-        with open("bank_save.pickle", "wb") as f:
-            pickle.dump(self._bank, f)
-            logging.debug("Saved to bank.pickle")
+    #     # reset current account variables to reflect no account selected when file is loaded
+    #     self._current_account = ""
+    #     self._current_account_formated = "None"
+    #     with open("bank_save.pickle", "wb") as f:
+    #         pickle.dump(self._bank, f)
+    #         logging.debug("Saved to bank.pickle")
 
-        # restore current account
-        self._current_account = current_account
-        self._current_account_formated = current_format
+    #     # restore current account
+    #     self._current_account = current_account
+    #     self._current_account_formated = current_format
 
-    def _load(self):
-        with open("bank_save.pickle", "rb") as f:   
-            self._bank = pickle.load(f)
-            logging.debug("Loaded from bank.pickle")
+    # def _load(self):
+    #     with open("bank_save.pickle", "rb") as f:   
+    #         self._bank = pickle.load(f)
+    #         logging.debug("Loaded from bank.pickle")
     
     def _quit(self):
         self._session.close()

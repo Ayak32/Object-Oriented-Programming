@@ -86,3 +86,117 @@
 2024-10-12 22:15:55|ERROR|AttributeError: AttributeError("type object 'Account' has no attribute '_number'")
 2024-10-12 22:19:34|DEBUG|Saved to bank.db
 2024-10-12 22:19:34|ERROR|OperationalError: OperationalError('(sqlite3.OperationalError) no such column: accounts.number')
+2024-10-12 22:25:14|DEBUG|Saved to bank.db
+2024-10-12 22:25:14|DEBUG|Loaded from bank.db
+2024-10-12 22:26:19|ERROR|AttributeError: AttributeError("'Bank' object has no attribute '_accounts'")
+2024-10-12 22:27:27|DEBUG|Saved to bank.db
+2024-10-12 22:27:27|DEBUG|Loaded from bank.db
+2024-10-12 22:27:30|DEBUG|Saved to bank.db
+2024-10-12 22:27:30|DEBUG|Created account: 2
+2024-10-12 22:27:30|DEBUG|Created account: 2
+2024-10-12 22:28:30|DEBUG|Saved to bank.db
+2024-10-12 22:28:30|DEBUG|Loaded from bank.db
+2024-10-12 22:28:34|DEBUG|Saved to bank.db
+2024-10-12 22:28:34|DEBUG|Created account: 4
+2024-10-12 22:28:34|DEBUG|Created account: 4
+2024-10-12 22:28:43|DEBUG|Loaded from bank.db
+2024-10-12 22:28:43|ERROR|InvalidRequestError: InvalidRequestError('Entity namespace for "accounts" has no property "account_number"')
+2024-10-12 22:29:50|DEBUG|Saved to bank.db
+2024-10-12 22:29:50|DEBUG|Loaded from bank.db
+2024-10-12 22:29:54|DEBUG|Saved to bank.db
+2024-10-12 22:29:54|DEBUG|Created account: 6
+2024-10-12 22:29:54|DEBUG|Created account: 6
+2024-10-12 22:29:58|DEBUG|Loaded from bank.db
+2024-10-12 22:30:34|DEBUG|Saved to bank.db
+2024-10-12 22:30:34|DEBUG|Loaded from bank.db
+2024-10-12 22:30:37|DEBUG|Saved to bank.db
+2024-10-12 22:30:37|DEBUG|Created account: 8
+2024-10-12 22:30:37|DEBUG|Created account: 8
+2024-10-12 22:30:42|DEBUG|Loaded from bank.db
+2024-10-12 22:30:42|ERROR|AttributeError: AttributeError("'NoneType' object has no attribute 'format_account'")
+2024-10-12 22:32:15|DEBUG|Saved to bank.db
+2024-10-12 22:32:15|DEBUG|Loaded from bank.db
+2024-10-12 22:32:18|DEBUG|Saved to bank.db
+2024-10-12 22:32:18|DEBUG|Created account: 10
+2024-10-12 22:32:18|DEBUG|Created account: 10
+2024-10-12 22:32:19|DEBUG|Loaded from bank.db
+2024-10-12 22:32:59|DEBUG|Saved to bank.db
+2024-10-12 22:32:59|DEBUG|Loaded from bank.db
+2024-10-12 22:33:00|DEBUG|Loaded from bank.db
+2024-10-12 22:34:40|DEBUG|Saved to bank.db
+2024-10-12 22:34:40|DEBUG|Loaded from bank.db
+2024-10-12 22:35:36|DEBUG|Saved to bank.db
+2024-10-12 22:35:36|DEBUG|Loaded from bank.db
+2024-10-12 22:35:41|DEBUG|Loaded from bank.db
+2024-10-12 22:35:50|DEBUG|Saved to bank.db
+2024-10-12 22:35:50|DEBUG|Created account: 2
+2024-10-12 22:35:50|DEBUG|Created account: 2
+2024-10-12 22:35:52|DEBUG|Loaded from bank.db
+2024-10-12 22:36:11|DEBUG|Saved to bank.db
+2024-10-12 22:36:12|DEBUG|Loaded from bank.db
+2024-10-12 22:36:13|DEBUG|Loaded from bank.db
+2024-10-12 22:40:55|DEBUG|Saved to bank.db
+2024-10-12 22:40:55|DEBUG|Loaded from bank.db
+2024-10-12 22:41:01|DEBUG|Saved to bank.db
+2024-10-12 22:41:01|DEBUG|Created account: 1
+2024-10-12 22:41:01|DEBUG|Created account: 1
+2024-10-12 22:41:02|DEBUG|Loaded from bank.db
+2024-10-12 22:41:09|ERROR|IntegrityError: IntegrityError('(sqlite3.IntegrityError) UNIQUE constraint failed: accounts.number')
+2024-10-12 22:42:01|DEBUG|Saved to bank.db
+2024-10-12 22:42:01|DEBUG|Loaded from bank.db
+2024-10-12 22:42:06|DEBUG|Saved to bank.db
+2024-10-12 22:42:06|DEBUG|Created account: 2
+2024-10-12 22:42:06|DEBUG|Created account: 2
+2024-10-12 22:42:10|DEBUG|Loaded from bank.db
+2024-10-12 22:42:15|DEBUG|Saved to bank.db
+2024-10-12 22:42:15|DEBUG|Created account: 3
+2024-10-12 22:42:15|DEBUG|Created account: 3
+2024-10-12 22:42:17|DEBUG|Loaded from bank.db
+2024-10-12 22:42:23|DEBUG|Saved to bank.db
+2024-10-12 22:42:23|DEBUG|Created account: 4
+2024-10-12 22:42:23|DEBUG|Created account: 4
+2024-10-12 22:42:24|DEBUG|Loaded from bank.db
+2024-10-12 22:42:34|DEBUG|Loaded from bank.db
+2024-10-12 22:42:45|DEBUG|Saved to bank.db
+2024-10-12 22:42:45|DEBUG|Created transaction: 2, 100
+2024-10-12 22:43:00|DEBUG|Saved to bank.db
+2024-10-12 22:43:00|DEBUG|Created transaction: 2, 100
+2024-10-12 22:43:09|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:45:04|DEBUG|Saved to bank.db
+2024-10-12 22:45:04|DEBUG|Loaded from bank.db
+2024-10-12 22:45:13|DEBUG|Loaded from bank.db
+2024-10-12 22:45:35|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:47:16|DEBUG|Saved to bank.db
+2024-10-12 22:47:16|DEBUG|Loaded from bank.db
+2024-10-12 22:47:20|DEBUG|Loaded from bank.db
+2024-10-12 22:47:32|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:48:51|DEBUG|Saved to bank.db
+2024-10-12 22:48:51|DEBUG|Loaded from bank.db
+2024-10-12 22:48:54|DEBUG|Loaded from bank.db
+2024-10-12 22:49:02|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:52:47|DEBUG|Saved to bank.db
+2024-10-12 22:52:47|DEBUG|Loaded from bank.db
+2024-10-12 22:52:52|DEBUG|Loaded from bank.db
+2024-10-12 22:53:01|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:53:41|DEBUG|Saved to bank.db
+2024-10-12 22:53:41|DEBUG|Loaded from bank.db
+2024-10-12 22:53:45|DEBUG|Loaded from bank.db
+2024-10-12 22:53:53|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:54:20|DEBUG|Saved to bank.db
+2024-10-12 22:54:20|DEBUG|Loaded from bank.db
+2024-10-12 22:54:24|DEBUG|Loaded from bank.db
+2024-10-12 22:54:31|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:54:49|DEBUG|Saved to bank.db
+2024-10-12 22:54:49|DEBUG|Loaded from bank.db
+2024-10-12 22:54:52|DEBUG|Loaded from bank.db
+2024-10-12 22:54:58|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:55:14|DEBUG|Saved to bank.db
+2024-10-12 22:55:14|DEBUG|Loaded from bank.db
+2024-10-12 22:55:18|DEBUG|Loaded from bank.db
+2024-10-12 22:55:28|ERROR|TypeError: TypeError("'<' not supported between instances of 'Transaction' and 'Transaction'")
+2024-10-12 22:58:13|DEBUG|Saved to bank.db
+2024-10-12 22:58:13|DEBUG|Loaded from bank.db
+2024-10-12 22:58:17|DEBUG|Loaded from bank.db
+2024-10-12 22:58:19|DEBUG|Triggered interest and fees
+2024-10-12 22:58:29|DEBUG|Triggered interest and fees
+2024-10-12 22:58:36|DEBUG|Loaded from bank.db
