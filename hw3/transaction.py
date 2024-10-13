@@ -32,6 +32,11 @@ class Transaction(Base):
         self._date = date
         self._amount = Decimal(amount)
     
+    def __lt__(self, other):
+        if isinstance(other, Transaction):
+            return self._date < other._date
+        return NotImplemented 
+
     def __repr__(self):
         """
         Return a string representation of the transaction, including the date and amount.

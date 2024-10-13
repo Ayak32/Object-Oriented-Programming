@@ -102,6 +102,8 @@ Enter command
 
         # update current account variables
         self._current_account = selected_account
+        print("selected account:", selected_account)
+        print("current account:", self._current_account)
         self._current_account_formated = selected_account_formated
 
     def _add_transaction(self):

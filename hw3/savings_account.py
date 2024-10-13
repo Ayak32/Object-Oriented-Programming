@@ -2,6 +2,7 @@ from transaction import Transaction
 from account import Account
 from decimal import Decimal
 from transaction_limit_error import TransactionLimitError
+from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship, mapped_column
@@ -13,7 +14,7 @@ class SavingsAccount(Account):
     """
     __tablename__ = 'savings_accounts'
 
-    number = mapped_column(Integer, ForeignKey('accounts.number'), primary_key=True)
+    account_number = mapped_column(Integer, ForeignKey('accounts.number'), primary_key=True)
     interest_rate = mapped_column(Float(asdecimal=True))
     # daily_limit = mapped_column(Integer)
     # monthly_limit = mapped_column(Integer)
@@ -52,15 +53,18 @@ class SavingsAccount(Account):
         # checks that the transaction would not overdraw the account
         super().verify_transaction(amount, date)
 
+
         # extract the year and month from date to check count of monthly transactions
         year_month = (date.year, date.month)
-
-
+        
+        print("here")
 
         # Check if the limit for daily transactions has been reached
-        if self._date_count.get(date, 0) >= 2:
+        # if self._date_count.get(date, 0) >= 2:
+        #     raise TransactionLimitError("daily")
+        if self._date_count.get(date.date(), 0) >= 2:  # Use date.date() to match with the date key
             raise TransactionLimitError("daily")
-
+        print("here")
         # Check if the limit for monthly transactions has been reached
         if self._month_count.get(year_month, 0) >= 5:
             raise TransactionLimitError("monthly")
@@ -76,10 +80,17 @@ class SavingsAccount(Account):
         self._transactions.append(new_transaction)
 
         # add date to to date_count
-        if date in self._date_count:
-            self._date_count[date] += 1
+        # if date in self._date_count:
+        #     self._date_count[date] += 1
+        # else:
+        #     self._date_count[date] = 1
+
+            # add date to to date_count
+        date_key = date.date()  # Ensure the key used is a date object
+        if date_key in self._date_count:
+            self._date_count[date_key] += 1
         else:
-            self._date_count[date] = 1
+            self._date_count[date_key] = 1
 
         # add year_month to to month_count
         if year_month in self._month_count:

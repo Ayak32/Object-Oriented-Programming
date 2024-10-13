@@ -43,7 +43,7 @@ class Account(Base):
             number (int): The account number.
         """
 
-        # self._transactions = []
+        self._transactions = []
         self._balance = 0
         self.number = number
         self._interest_fees_month = None
@@ -87,19 +87,19 @@ class Account(Base):
 
     def verify_sequence(self, date):
         # if no previous transactions, no need to sort or verify sequence
-        if len(self._transactions) == 0:
+        # print("here")
+        if len(self._transactions) <= 0:
+            # print("here")
             return
-        print("here")
         # sorts transactions from the latest to the earliest
         #sorted_transactions = sorted(self._transactions, key=lambda transaction: transaction._date, reverse=True)
         sorted_transactions = sorted(self._transactions)
-        print("here")
+        # print("here")
         latest_transaction = sorted_transactions[-1]
-        print(latest_transaction)
+        # print("latest_transaction:", latest_transaction._date)
         if date < latest_transaction._date:
-            print("here")
             raise TransactionSequenceError("normalSequenceError", latest_transaction._date)
-        print("end verify seqence")
+        
 
     def verify_transaction(self, amount, date):
         """Verify if a transaction can be applied to the account based on the balance.
@@ -112,7 +112,7 @@ class Account(Base):
         Returns:
             bool: True if the transaction is valid, False otherwise.
         """
-        
+        print("here")
         current_balance = self._balance
 
         balance_after_transaction = current_balance + amount
@@ -121,6 +121,7 @@ class Account(Base):
         if current_balance >= 0 and balance_after_transaction < 0:
             raise OverdrawError
         
+        print("here")
         self.verify_sequence(date)
 
         return True
