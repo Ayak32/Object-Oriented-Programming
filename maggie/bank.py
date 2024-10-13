@@ -1,12 +1,10 @@
-
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from accounts import CheckingAccount, SavingsAccount, Account
 from base import Base
 import logging
 
-
-class Bank(Base):
+class Bank:
     def __init__(self, session):
         """Create a new account"""
 

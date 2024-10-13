@@ -72,3 +72,17 @@
 2024-10-12 19:13:39|DEBUG|Created account: 2
 2024-10-12 19:14:05|DEBUG|Created account: 1
 2024-10-12 19:14:09|DEBUG|Created account: 2
+2024-10-12 21:49:15|DEBUG|Saved to bank.db
+2024-10-12 21:49:15|ERROR|AttributeError: AttributeError("type object 'Account' has no attribute '_number'")
+2024-10-12 21:52:50|DEBUG|Saved to bank.db
+2024-10-12 21:52:50|ERROR|AttributeError: AttributeError("type object 'Account' has no attribute '_number'")
+2024-10-12 22:02:34|DEBUG|Saved to bank.db
+2024-10-12 22:02:34|ERROR|InvalidRequestError: InvalidRequestError("Mapper 'Mapper[Account(accounts)]' has no property 'transactions'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.")
+2024-10-12 22:05:15|DEBUG|Saved to bank.db
+2024-10-12 22:05:15|ERROR|OperationalError: OperationalError('(sqlite3.OperationalError) no such column: accounts._number')
+2024-10-12 22:08:32|DEBUG|Saved to bank.db
+2024-10-12 22:08:32|ERROR|OperationalError: OperationalError('(sqlite3.OperationalError) no such column: accounts._number')
+2024-10-12 22:15:55|DEBUG|Saved to bank.db
+2024-10-12 22:15:55|ERROR|AttributeError: AttributeError("type object 'Account' has no attribute '_number'")
+2024-10-12 22:19:34|DEBUG|Saved to bank.db
+2024-10-12 22:19:34|ERROR|OperationalError: OperationalError('(sqlite3.OperationalError) no such column: accounts.number')

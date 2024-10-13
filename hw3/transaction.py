@@ -1,11 +1,26 @@
 from datetime import datetime
 from decimal import Decimal, ROUND_HALF_UP
 
+from sqlalchemy import Column, Integer, Float, DateTime, Boolean, ForeignKey
+from sqlalchemy.orm import relationship, mapped_column
+from base import Base
 
-class Transaction:
+
+
+class Transaction(Base):
     """Represents a transaction, including a date and an amount. This class provides
     methods to apply the transaction to an account, updating the account's balance, and 
     format the transaction details."""
+    __tablename__ = '_transactions'
+    id = mapped_column(Integer, primary_key=True)
+    account_number = mapped_column(Integer, ForeignKey('accounts.number'))
+    _amount = mapped_column(Float(asdecimal=True))
+    _date = mapped_column(DateTime)
+    interest=mapped_column(Boolean)
+
+    account = relationship("Account", back_populates="_transactions")
+    
+    
     def __init__(self, date, amount):
         """
         Initialize a Transaction object with the given date and amount.

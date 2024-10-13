@@ -3,10 +3,25 @@ from account import Account
 from decimal import Decimal
 from transaction_limit_error import TransactionLimitError
 
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Enum
+from sqlalchemy.orm import relationship, mapped_column
+
+import logging
 
 class SavingsAccount(Account):
     """A class representing a savings account, inheriting from the Account class.
     """
+    __tablename__ = 'savings_accounts'
+
+    number = mapped_column(Integer, ForeignKey('accounts.number'), primary_key=True)
+    interest_rate = mapped_column(Float(asdecimal=True))
+    # daily_limit = mapped_column(Integer)
+    # monthly_limit = mapped_column(Integer)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'savings'
+    }
+
     def __init__(self, number):
         """
         Initialize a SavingsAccount with a unique account number, interest rate, 

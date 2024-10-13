@@ -4,10 +4,10 @@ from account import Account
 from base import Base
 from sqlalchemy.orm import Session
 from sqlalchemy import func
+import logging
 
 
-
-class Bank(Base):
+class Bank():
     """Manages a collection of savings and checking accounts. It supports
     creating new accounts, handling transactions, applying interest and fees, and fetching 
     or formatting account information."""
@@ -15,16 +15,20 @@ class Bank(Base):
     #     """Initialize the Bank class with an empty list of accounts and a counter for account numbers."""
     #     self._accounts = []
     #     self._count = 0
+ 
 
     def __init__(self, session):
         self.session = session
-        self.account_number = self._next_account_number()  
+        self._count = self._increment_count()  
 
-    def _next_account_number(self):
-        max_account = self.session.query(func.max(Account._number)).scalar()
-        # INCOMPLETE
+    def _increment_count(self):
+        current_count = self.session.query(func.max(Account.number)).scalar()
+
         logging.debug(f"Loaded from bank.db")
-        return max_account + 1 if max_account else 1
+        if current_count:
+            return current_count + 1
+        else:
+            return 1
 
 
     def new_account(self, account_type):
@@ -39,13 +43,20 @@ class Bank(Base):
             self._count += 1
             new_account = SavingsAccount(self._count)
             self._accounts.append(new_account)
-            return new_account
         elif account_type == "checking":
             self._count += 1
             new_account = CheckingAccount(self._count)
             self._accounts.append(new_account)
-            return new_account
+        else:
+            return None
 
+        self.session.add(new_account)
+        self.session.commit()
+        logging.debug(f"Saved to bank.db")
+        logging.debug(f"Created account: {new_account.number}")
+
+        self._count += 1
+        return new_account
         
 
 
@@ -107,16 +118,20 @@ class Bank(Base):
         """
         return account.format_account()
     
-  
+    def select_account(self, account_number):
+        logging.debug(f"Loaded from bank.db")
+        return self.session.query(Account).filter_by(account_number=int(account_number)).first()
+
     def all_accounts(self):
         """Format and return a list of all accounts in the bank.
         
         Returns:
             list: A list of formatted account details (type, number, balance).
         """
-
+        accounts = self.session.query(Account).all()
+        logging.debug(f"Loaded from bank.db")
         formated_accounts_list = []
-        for account in self._accounts:
+        for account in accounts:
             # Format account and add to list
             formated_accounts_list.append(account.format_account())
 

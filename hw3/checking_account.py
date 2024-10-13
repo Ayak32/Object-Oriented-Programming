@@ -4,10 +4,26 @@ from overdraw_error import OverdrawError
 import logging
 from account import Account
 
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Enum
+from sqlalchemy.orm import relationship, mapped_column
+
+import logging
 
 class CheckingAccount(Account):
     """A class representing a checking account, inheriting from the Account class.
     """
+    __tablename__ = 'checking_accounts'
+    account_number = mapped_column(Integer, ForeignKey('accounts.number'), primary_key=True)
+    # interest_rate = mapped_column(Float(asdecimal=True))
+    # low_balance_fee = mapped_column(Float(asdecimal=True))
+    # balance_threshold = mapped_column(Float(asdecimal=True))
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'checking'
+    }
+    
+
+
     def __init__(self, number):
         """Initialize the CheckingAccount with the given account number. 
         Sets the account type to "Checking" and assigns an interest rate.
@@ -61,4 +77,4 @@ class CheckingAccount(Account):
         fee_transaction = Transaction(date, fee)
         fee_transaction.withdraw_or_deposit(self)
         self._transactions.append(fee_transaction)
-        logging.debug(f"Created transaction: {self._number}, {fee_transaction._amount}")
+        logging.debug(f"Created transaction: {self.number}, {fee_transaction._amount}")

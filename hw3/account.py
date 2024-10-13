@@ -6,10 +6,35 @@ from transaction_sequence_error import TransactionSequenceError
 import logging
 import calendar
 
-class Account:
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Enum
+from sqlalchemy.orm import relationship, mapped_column
+from base import Base
+
+import logging
+
+from sqlalchemy.orm import DeclarativeBase
+
+
+
+class Account(Base):
     """An abstract class that represents a generic bank account. The account tracks transactions, maintains a balance, 
     and provides methods for verifying and listing transactions, applying interest and fees, 
     and formatting account details."""
+
+    __tablename__ = 'accounts'
+
+    number = mapped_column(Integer, primary_key=True)
+    _balance = mapped_column(Float(asdecimal=True))
+    _type = mapped_column(String(50))
+
+    _transactions = relationship("Transaction", back_populates="account")
+    
+    __mapper_args__ = {
+        'polymorphic_identity': 'account',
+        'polymorphic_on': _type
+    }
+
+
     def __init__(self, number):
         """Initialize the Account with a given account number, an empty transaction list, 
         and a starting balance of 0.
@@ -18,9 +43,9 @@ class Account:
             number (int): The account number.
         """
 
-        self._transactions = []
+        # self._transactions = []
         self._balance = 0
-        self._number = number
+        self.number = number
         self._interest_fees_month = None
     
     def number_matches(self, number):
@@ -32,7 +57,7 @@ class Account:
         Returns:
             bool: True if the account numbers match, False otherwise.
         """
-        return int(number) == self._number
+        return int(number) == self.number
 
     def format_account(self):
         """Format the account details as a string with the account type, padded account number,
@@ -42,7 +67,7 @@ class Account:
             str: A formatted string representing the account details.
         """
         type = self._type.capitalize()
-        number = self._number
+        number = self.number
         balance = self._balance
         # Pad the account number to 9 digits
         padded_account_number = f"{number:09}"
@@ -66,7 +91,8 @@ class Account:
             return
 
         # sorts transactions from the latest to the earliest
-        sorted_transactions = sorted(self._transactions, key=lambda transaction: transaction._date, reverse=True)
+        #sorted_transactions = sorted(self._transactions, key=lambda transaction: transaction._date, reverse=True)
+        sorted_transactions = sorted(self._transactions)
         latest_date = sorted_transactions[0]._date
         if date < latest_date:
             raise TransactionSequenceError("normalSequenceError", latest_date)
@@ -132,5 +158,5 @@ class Account:
         interest_transaction.withdraw_or_deposit(self)
 
         self._transactions.append(interest_transaction)
-        logging.debug(f"Created transaction: {self._number}, {interest_transaction._amount}")
+        logging.debug(f"Created transaction: {self.number}, {interest_transaction._amount}")
         return interest_transaction

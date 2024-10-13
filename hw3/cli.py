@@ -8,6 +8,13 @@ from transaction_limit_error import TransactionLimitError
 import logging
 from bank import Bank
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from base import Base
+
+
+
+# Base = declarative_base()
 
 logging.basicConfig(filename='bank.log', level=logging.DEBUG, format='%(asctime)s|%(levelname)s|%(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
@@ -17,7 +24,14 @@ class BankCLI:
     """Display a menu and respond to choices when run"""
 
     def __init__(self):
-        self._bank = Bank()
+        engine = create_engine("sqlite:///bank.db")
+        Base.metadata.create_all(engine)
+        Session = sessionmaker(bind=engine)
+        self._session = Session()
+        logging.debug(f"Saved to bank.db")
+
+
+        self._bank = Bank(self._session)
 
         # stores the current account as a string to be printed in menu
         self._current_account_formated = "None"
@@ -70,7 +84,7 @@ Enter command
         print("Type of account? (checking/savings)")
         account_type = input(">")
         account = self._bank.new_account(account_type)
-        account_number = account._number
+        account_number = account.number
         logging.debug(f"Created account: {account_number}")
 
 
@@ -83,9 +97,10 @@ Enter command
         print("Enter account number")
         account_number = input(">")
 
+        selected_account = self._bank.select_account(account_number) 
         # retrieve account from account list
-        selected_account = self._bank.fetch_account(account_number)
-        
+        # selected_account = self._bank.fetch_account(account_number)
+
         # check if account does not exist
         if not selected_account:
             return
@@ -122,6 +137,8 @@ Enter command
         # program attempts to add a new transaction and checks for exceptions related to this action
         try:
             self._bank.new_transaction(amount, date, self._current_account)
+            self._session.commit()
+            logging.debug(f"Saved to bank.db")
         except AttributeError:
             print("This command requires that you first select an account.")
             return
@@ -137,7 +154,7 @@ Enter command
             if s.error == "normalSequenceError":
                 print(f"New transactions must be from {s.latest_date.strftime('%Y-%m-%d')} onward.")
 
-        logging.debug(f"Created transaction: {self._current_account._number}, {amount}")
+        logging.debug(f"Created transaction: {self._current_account.number}, {amount}")
 
 
 
@@ -156,6 +173,8 @@ Enter command
     def _interest_and_fees(self):
         try:
             self._bank.interest_and_fees(self._current_account)
+            self._session.commit()
+            logging.debug(f"Saved to bank.db")
         except AttributeError:
             print("This command requires that you first select an account.")
         except TransactionSequenceError as s:
@@ -187,6 +206,7 @@ Enter command
             logging.debug("Loaded from bank.pickle")
     
     def _quit(self):
+        self._session.close()
         sys.exit(0)
 
 if __name__ == "__main__":
